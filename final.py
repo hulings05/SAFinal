@@ -1,6 +1,9 @@
 from flask import Flask, redirect, url_for, render_template, request
+from flask_bootstrap import Bootstrap
 import sqlite3 as sql
+
 app = Flask(__name__)
+Bootstrap(app)
 
 @app.route('/')
 def welcome():
@@ -24,8 +27,8 @@ def bookingrec():
             cur = conn.cursor()
             cur.execute(cmd)
             conn.commit()
-            return render_template("confirmationpage.htm", name=name, checkin=checkin, checkout=checkout) #, msg = msg
-
+            return render_template("confirmationpage.htm", name=name, checkin=checkin, checkout=checkout, roomtype=roomtype)
+        
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
